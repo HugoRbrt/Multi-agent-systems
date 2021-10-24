@@ -1,3 +1,4 @@
+import java.awt.Point;
 class TestBalls{
 	public static void main(String[] args) {
 		//initialisation des variables
