@@ -40,8 +40,8 @@ exeGUI:
 	java -classpath bin:bin/gui.jar TestGUI
 exeBalls:
 	java -classpath bin:bin/gui.jar TestBalls
-exeTestBallSimulator:
-	java -classpath bin:bin/gui.jar TestBallSimulator
+exeTestBallsSimulator:
+	java -classpath bin:bin/gui.jar TestBallsSimulator
 
 clean:
 	rm -rf bin/*.class
