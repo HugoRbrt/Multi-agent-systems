@@ -29,6 +29,8 @@ testBalls:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestBalls.java
 testBallsSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestBallsSimulator.java
+BallsSimulator :
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/BallsSimulator.java
 
 
 # Execution:
