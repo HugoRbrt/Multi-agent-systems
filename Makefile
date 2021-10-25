@@ -31,6 +31,8 @@ testBallsSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestBallsSimulator.java
 testRectangleSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestRectangleSimulator.java
+testRectangleImGameSimulator :
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestRectangleImGameSimulator.java
 
 
 # Execution:
@@ -46,6 +48,8 @@ exeBallsSimulator:
 	java -classpath bin:bin/gui.jar TestBallsSimulator
 exeRectangleSimulator:
 	java -classpath bin:bin/gui.jar TestRectangleSimulator
+exeRectangleImGameSimulator:
+	java -classpath bin:bin/gui.jar TestRectangleImGameSimulator
 
 clean:
 	rm -rf bin/*.class

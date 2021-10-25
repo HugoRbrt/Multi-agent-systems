@@ -1,4 +1,4 @@
-Ensimag 2A POO - TPL
+ Ensimag 2A POO - TPL
 ============================
 - src: contient les classes fournies par les enseignants 
   -> TestGUI.java : cree une fenetre graphique "Invaders", pas de simulation
@@ -20,4 +20,10 @@ GUIDE UTILISATION :
 	Pour changer les conditions initiales,  on écrit newRectSim.setState1(l,c); pour mettre à 1 l'état initiale du rectangle case ligne l colonne c
 
 - Le jeu de l’immigration (question 6) : 
+on lance les commandes : make testRectangleImGameSimulator
+			   PUIS make exeRectangleImGameSimulator 
+	Pour changer la tailles des rectangles on modifies les valeurs de sizeWidth et sizeHeight
+	Pour changer le n ombre d'état on modifie la valeur de nbStates
+	Pour changer les conditions initiales,  on écrit newRectImSim.setState(l,c,n); pour mettre à l'état n l'état initiale du rectangle case ligne l colonne c (par défaut l'état initiale et random)
+
 	
