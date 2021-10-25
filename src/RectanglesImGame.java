@@ -1,9 +1,19 @@
+import java.util.ArrayList;
+import java.awt.Point;
+import java.util.LinkedList;
 
 class RectanglesImGame extends Rectangles{
-  //int States[] states;
-  public RectanglesImGame(int ligne, int col,){ //int nbStates){
+//ATTRIBUTS
+  public int[][] statesVoisins;
+  public int nbStates
+//int States[] states;
+  public RectanglesImGame(int ligne, int col,int nbEtats){){
     super(ligne,col);
-    this.states=new int[nbStates];
+    this.statesVoisins=new int[nbStates][];
+    this.nbStates = nbEtats;
+    for(int i=0;i<this.statesVoisins.length;i++){
+			this.statesVoisins[i] = new int[nbStates];
+		}
   }
   @Override
   public NewState(){
@@ -14,44 +24,29 @@ class RectanglesImGame extends Rectangles{
 				int lprec = l-1; if(lprec==-1){lprec=currentState.length-1;}
  				int csuiv = c+1; if(csuiv==currentState[0].length){csuiv=0;}
 				int cprec = c-1; if(cprec==-1){cprec=currentState[0].length-1;}
-        LinkedList<Rectangle> Voisins= new LinkedList<Rectangle>;
-        Voisins.add(pastState[lsuiv][csuiv]);
-        Voisins.add(pastState[lsuiv][c]);
-        Voisins.add(pastState[lsuiv][cprec]);
-        Voisins.add(pastState[l][csuiv]);
-        Voisins.add(pastState[l][cprec]);
-        Voisins.add(pastState[lprec][csuiv]);
-        Voisins.add(pastState[lprec][c]);
-        Voisins.add(pastState[lprec][cprec]);
+        LinkedList<Integer> voisins= new LinkedList<Integer>;
+        voisins.add(pastState[lsuiv][csuiv]);
+        voisins.add(pastState[lsuiv][c]);
+        voisins.add(pastState[lsuiv][cprec]);
+        voisins.add(pastState[l][csuiv]);
+        voisins.add(pastState[l][cprec]);
+        voisins.add(pastState[lprec][csuiv]);
+        voisins.add(pastState[lprec][c]);
+        voisins.add(pastState[lprec][cprec]);
         //for(int ) boucle non implémentée pour créer n variables nbVoisinsEtat...
-        int nbVoisinsState0=0;
-        int nbVoisinsState1=0;
-        int nbVoisinsState2=0;
-        Iterator<Rectangle> itVoisins=Voisins.iterator();
+        Iterator<Integer> voisins=voisins.iterator();
 
-        while(itVoisins.hasNext()){
-          Rectangle voisin=it.next();
-          if(voisin.state==0){
-            nbVoisinsState0++;
+        while(voisins.hasNext()){
+          Integer voisin=voisins.next();
+          if(voisin=1+pastState[l][c]){
+            statesVoisins[l][c] +=1;
           }
-          if(voisin.state==1){
-            nbVoisinsState1++;
-          }
-          if(voisin.state==2){
-            nbVoisinsState2++;
-          }
-          nbVoisinsVivant=nbVoisinsState1+nbVoisinsState2;
         }
 
 				//on effectue les chgmts necessaire :
-				if(pastState[l][c]==0 && (nbVoisinsState1==3)){//cas cellule morte qui va naitre
-					currentState[l][c]=1;
-				}
-        if(pastState[l][c]==1 && (nbVoisinsState2==3)){//cas cellule morte qui va naitre
-					currentState[l][c]=2;
-				}
-				if((pastState[l][c]==1 || pastState[l][c]==2) && (nbVoisinsVivant>3 || nbVoisinsVivant<2)){//cas cellule vivante qui va mourir
-					currentState[l][c]=0;
+				if(pastState[l][c]>2){//cas cellule morte qui va naitre
+					currentState[l][c]=+1;
+          if(currentState[l][c]==nbStates){currentState[l][c]=0;}
 				}
 			}
 		}
