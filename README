@@ -1,13 +1,23 @@
 Ensimag 2A POO - TPL
 ============================
-
 - src: contient les classes fournies par les enseignants 
   -> TestGUI.java : cree une fenetre graphique "Invaders", pas de simulation
   Et c'est tout, en fait!
-
 - bin/gui.jar: archive Java contenant les classes de l'interface graphique. Voir un exemple d'utilisation dans TestGUI.java
-
 - doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
-
 - Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
+============================
+GUIDE UTILISATION : 
+- Jouons à la balle (question 1 à 4) : 
+	on lance les commandes : make testBallsSimulator
+			   PUIS make exeBallsSimulator 	
+	Pour changer les conditions initiales,  on écrit liste.add(new Point(x,y)); pour ajouter une balle à la position initiale (x,y)
 
+- Le jeu de la vie de Conway (question 5) :
+	on lance les commandes : make testRectangleSimulator
+			   PUIS make exeRectangleSimulator 
+	Pour changer la tailles des rectangles on modifies les valeurs de sizeWidth et sizeHeight
+	Pour changer les conditions initiales,  on écrit newRectSim.setState1(l,c); pour mettre à 1 l'état initiale du rectangle case ligne l colonne c
+
+- Le jeu de l’immigration (question 6) : 
+	
