@@ -4,19 +4,16 @@ import java.util.LinkedList;
 class Balls{
 //ATTRIBUTS
 	public LinkedList<Point> point;
+	public LinkedList<Point> pointInit;
 //CONSTRUCTEUR
 	public Balls() {
 		this.point = new LinkedList<Point>();
-		Point p1 = new Point(1,1);
-		Point p2 = new Point(2,1);
-		Point p3 = new Point(2,2);
-		point.add(p1);
-		point.add(p2);
-		point.add(p3);
+		this.pointInit = new LinkedList<Point>();
 	}
 //METHODES
 	public void add(Point p) {
 		this.point.add(p);
+		this.pointInit.add(new Point((int)this.point.getLast().getX(),(int)this.point.getLast().getY()));
 	}
 	public void translate(int dx, int dy) {
 		for(Point b : point) {
@@ -24,8 +21,10 @@ class Balls{
 		}
 	}
 	public void reInit() {
-		for(Point b : point) {
-			b.setLocation(0,0);
+		//On remet les coordonnées de tous les points à leurs valeurs initiales stocké dans pointInit
+		point.clear();
+		for(Point b : pointInit){
+			point.add(new Point((int)b.getX(),(int)b.getY()));
 		}
 	}
 	@Override
