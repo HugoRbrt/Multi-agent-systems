@@ -9,12 +9,14 @@ public class RectangleSimulator implements Simulable {
 //ATTRIBUTS
 	public Rectangles r;
 	private GUISimulator gui;
-	//on définit des rectangles de tailles 30*30
-	private int HeightSize = 100;
-	private int WidthSize = 100;
-//METHODES
-	public RectangleSimulator(GUISimulator Gui){
+	//Taille des rectangles : 
+	private int HeightSize;
+	private int WidthSize;
+//CONSTRUCTEUR
+	public RectangleSimulator(GUISimulator Gui,int HeightSize, int WidthSize){//associe un GUISimulator, ajoute le nombre de points en conséquence
 		this.gui = Gui;
+		this.HeightSize = HeightSize;
+		this.WidthSize = WidthSize;
 		int l = this.gui.getPanelHeight()/HeightSize;
 		int c = this.gui.getPanelWidth()/WidthSize;
 		this.r = new Rectangles(l,c);
@@ -23,10 +25,11 @@ public class RectangleSimulator implements Simulable {
 				this.r.add(new Point(HeightSize*i+HeightSize/2,WidthSize*k+WidthSize/2));
 			}
 		}
-		this.r.modifyState(0,0,1);
-		this.r.modifyState(1,0,1);
-		this.r.modifyState(0,1,1);
-		this.r.modifyState(1,2,1);
+		this.affichage();
+	}
+//METHODES
+	public void setState1(int l, int c){
+		this.r.modifyState(l,c,1);
 		this.affichage();
 	}
 	@Override
