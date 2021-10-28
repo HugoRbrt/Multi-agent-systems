@@ -3,14 +3,17 @@ import java.util.LinkedList;
 
 class Balls{
 //ATTRIBUTS
-	public LinkedList<Point> point;
-	public LinkedList<Point> pointInit;
+	private LinkedList<Point> point;
+	private LinkedList<Point> pointInit;
 //CONSTRUCTEUR
 	public Balls() {
 		this.point = new LinkedList<Point>();
 		this.pointInit = new LinkedList<Point>();
 	}
 //METHODES
+	public LinkedList<Point> getpoint(){
+		return this.point;
+	}
 	public void add(Point p) {
 		this.point.add(p);
 		this.pointInit.add(new Point((int)this.point.getLast().getX(),(int)this.point.getLast().getY()));

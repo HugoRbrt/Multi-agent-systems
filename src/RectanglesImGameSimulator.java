@@ -41,12 +41,11 @@ class RectanglesImGameSimulator implements Simulable{
   		int c=0;
   		int l=0;
       Color couleur = Color.WHITE;
-      //NE MARCHE QUE JUSQU'A 8 ETATS
-      for(Point n:this.r.rectangle){
-        int nuance = 255-this.r.currentState[l][c]*255/this.r.nbStates;
+      for(Point n:this.r.getrectangle()){
+        int nuance = 255-this.r.getcurrentState()[l][c]*255/this.r.getnbStates();
         gui.addGraphicalElement(new Rectangle((int)n.getX(),(int)n.getY(),new Color(nuance,nuance,nuance),new Color(nuance,nuance,nuance),HeightSize,WidthSize));
   			c++;
-  			if(c==this.r.currentState[l].length){c=0;l++;}
+  			if(c==this.r.getcurrentState()[l].length){c=0;l++;}
   		}
   	}
 

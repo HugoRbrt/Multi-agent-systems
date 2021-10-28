@@ -7,9 +7,9 @@ import java.awt.Point;
 
 public class RectangleSimulator implements Simulable {
 //ATTRIBUTS
-	public Rectangles r;
+	private Rectangles r;
 	private GUISimulator gui;
-	//Taille des rectangles : 
+	//Taille des rectangles :
 	private int HeightSize;
 	private int WidthSize;
 //CONSTRUCTEUR
@@ -40,15 +40,15 @@ public class RectangleSimulator implements Simulable {
 	public void affichage(){
 		int c=0;
 		int l=0;
-		for(Point n:this.r.rectangle){
-			if(this.r.currentState[l][c]==1){//si le nouvel état est vivant on affiche en blanc
+		for(Point n:this.r.getrectangle()){
+			if(this.r.getcurrentState()[l][c]==1){//si le nouvel état est vivant on affiche en blanc
 				gui.addGraphicalElement(new Rectangle((int)n.getX(),(int)n.getY(),Color.WHITE,Color.WHITE,HeightSize,WidthSize));
 			}
 			else{//si le nouvel état est mort, on affiche en noir
 				gui.addGraphicalElement(new Rectangle((int)n.getX(),(int)n.getY(),Color.BLACK,Color.BLACK,HeightSize,WidthSize));
 			}
 			c++;
-			if(c==this.r.currentState[l].length){c=0;l++;}
+			if(c==this.r.getcurrentState()[l].length){c=0;l++;}
 		}
 	}
 

@@ -19,6 +19,5 @@ public class TestRectangleSimulator{
 		newRectSim.setState1(1,2);
 		//on lance la simulation :
 		gui.setSimulable(newRectSim) ;
-
 		}
 	}

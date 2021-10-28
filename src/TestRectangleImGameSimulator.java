@@ -14,8 +14,8 @@ public class TestRectangleImGameSimulator{
 		int nbStates = 3;
 		RectanglesImGameSimulator newRectImSim=new RectanglesImGameSimulator(gui,sizeHeight,sizeWidth,nbStates);
 		//on choisit les rectangle dont on veut changer l'état initial
-		for(int l=0;l<newRectImSim.r.currentState.length;l++){
-			for(int c=0;c<newRectImSim.r.currentState[0].length;c++){
+		for(int l=0;l<newRectImSim.r.getcurrentState().length;l++){
+			for(int c=0;c<newRectImSim.r.getcurrentState()[0].length;c++){
 				newRectImSim.setState(l,c,(int)(Math.random()*nbStates));
 			}
 		}

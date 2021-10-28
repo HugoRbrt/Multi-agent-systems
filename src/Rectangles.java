@@ -3,10 +3,10 @@ import java.util.LinkedList;
 
 class Rectangles{
 //ATTRIBUTS
-	public LinkedList<Point> rectangle;//liste des rectangles de longeur correspondant au nombre de rectangle
-	public int[][] currentState;//currentState[k][i] : état actuel au rectangle ligne k colonne i
-	public int[][] pastState;//ancien état des rectangles
-	public int[][] initState;// état initial des rectangles
+	private LinkedList<Point> rectangle;//liste des rectangles de longeur correspondant au nombre de rectangle
+	private int[][] currentState;//currentState[k][i] : état actuel au rectangle ligne k colonne i
+	private int[][] pastState;//ancien état des rectangles
+	private int[][] initState;// état initial des rectangles
 //CONSTRUCTEUR
 	public Rectangles(int ligne, int col) {//création de col*ligne rectangle
 		this.rectangle = new LinkedList<Point>();
@@ -20,6 +20,18 @@ class Rectangles{
 		}
 	}
 //METHODES
+	public int[][] getcurrentState(){
+		return this.currentState;
+	}
+	public int[][] getpastState(){
+		return this.pastState;
+	}
+	public int[][] getinitState(){
+		return this.initState;
+	}
+	public LinkedList<Point> getrectangle(){
+		return this.rectangle;
+	}
 	public void add(Point p) {//permet d'ajouter la coordonnée d'un rectangle p à la liste des rectangles deja existant et de mettre, par défaut, l'état à 0
 		this.rectangle.add(p);
 		int numLigne = this.rectangle.size()/currentState[0].length;
