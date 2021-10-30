@@ -31,6 +31,6 @@ class boid{
     steer=new Vector(desired.x, desired.y); // à l'approche de sa cible, une force steer va pousser le boid vers cette dernière
     steer.limit(maxForce);
     this.applyForce(steer);
-
   }
+  
 }
