@@ -21,10 +21,17 @@ class Vector{
     x-=vec.x;
     y-=vec.y;
   }
-  public void mult(int scalar)(
+  public void mult(float scalar)(
     x*=scalar;
     y+=scalar;
   )
+  public void div(float scalar){
+    if(scalar==0){throw new ArithmeticException("Division par 0")};
+    else{
+      x=x/scalar;
+      y=y/scalar;
+    }
+  }
   public void normalize(){
     if(mag!=0){
       x=x/mag;
