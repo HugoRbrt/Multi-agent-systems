@@ -11,5 +11,4 @@ public class Boids{
     for(Boid b:listBoid){
       b.update();
     }
-  }
 }
