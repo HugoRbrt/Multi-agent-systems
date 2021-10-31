@@ -32,5 +32,25 @@ class boid{
     steer.limit(maxForce);
     this.applyForce(steer);
   }
-  
+  public int dist(Boid b){
+    return sqrt((b-this.x)^2+(b.y-this.y)^2);
+  }
+  public void separate(ArrayList<Boid> list){
+    float distance=0;
+    float desiredDistance=20;
+    Vector forceRes=new Vector();
+    int count=0;
+    for(Boid other:list){
+      distance=this.dist(other);
+      if(distance>0 &&distance>desiredDistance){
+        Vector forceDist=Vector.sub(pos,other.pos);
+        forceDist.normalize();
+        forceRes.add(forceDist);
+        count++;
+      }
+    }
+    if(count>0){
+      sum.div(count);
+    }
+  }
 }
