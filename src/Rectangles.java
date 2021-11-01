@@ -23,6 +23,7 @@ class Rectangles{
 	public int[][] getcurrentState(){
 		return this.currentState;
 	}
+//UNE DES MODIFS A FAIRE SERAIT DE FAIRE UN getpastState	(l,c) POUYR EVITER DE RENVOYER TOUT LE TABLEAU A CHAQUE FOIS
 	public int[][] getpastState(){
 		return this.pastState;
 	}
@@ -41,14 +42,14 @@ class Rectangles{
 		this.pastState[numLigne][numCol]   =0;
 		this.currentState[numLigne][numCol]=0;
 	}
-
-	public void modifyState(int l, int c, int state){//modifie l'état d'un rectangle ligne l colonne c pour le mettre à l'état state
+	public void modifyState(int l, int c, int state){//modifie l'état initial d'un rectangle ligne l colonne c pour le mettre à l'état state
 		currentState[l][c] = state;
 		pastState[l][c] = state;
 		initState[l][c] = state;
 	}
-
-
+	public void modifyCurrentState(int l, int c, int state){//modifie l'état initial d'un rectangle ligne l colonne c pour le mettre à l'état state
+		currentState[l][c] = state;
+	}
 	public void newState() {//calcul et met à jour l'état des rectangles pour l'étape suivante
 		for(int l=0;l<currentState.length;l++) {
 			for(int c=0;c<currentState[0].length;c++){//pour chaques rectangles :
@@ -73,7 +74,6 @@ class Rectangles{
 				pastState[l][c]=currentState[l][c];
 			}
 		}
-
 	}
 	public void reInit() {//On remet les coordonnées de tous les points à leurs valeurs initiales stocké dans pointInit
 		for(int i=0;i<currentState.length;i++){
@@ -83,8 +83,6 @@ class Rectangles{
 			}
 		}
 	}
-
-
 
 	@Override
 	public String toString() {//on retourne les coordonnées de chacun des rectangles de l'objet

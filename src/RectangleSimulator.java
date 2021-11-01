@@ -51,10 +51,8 @@ public class RectangleSimulator implements Simulable {
 			if(c==this.r.getcurrentState()[l].length){c=0;l++;}
 		}
 	}
-
 	@Override
-	public void restart()
-	{
+	public void restart(){
 		this.r.reInit();
 		this.affichage();
 	}
