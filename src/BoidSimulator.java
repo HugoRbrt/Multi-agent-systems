@@ -11,25 +11,32 @@ class BoidSimulator implements Simulable{
   import java.awt.Point;
   import java.util.LinkedList;
   import java.awt.Point;
-  private Boids boids;
+  private Flock boids;
   private GUISimulator gui;
   private int HeightSize;
   private int WidthSize;
 
-  public boidSimulator(GUISimulator Gui,int HeightSize, int WidthSize){
+  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize){
     this.gui = Gui;
 		this.HeightSize = HeightSize;
 		this.WidthSize = WidthSize;
 		int l = this.gui.getPanelHeight()/HeightSize;
 		int c = this.gui.getPanelWidth()/WidthSize;
-		this.boids = new Boids();
+		this.boids = new Flock();
     Random randomInt;
 		for(int i=0;i<20;i++){
       boids.add(new Boid(r.nextInt(100),r.nextInt(100),r.nextInt(20),r.nextInt(20)));
     }
 		this.affichage();
   }
-
+@Override
+public void next(){
+  for(Boid b:listBoid){
+    b.flock(listBoid);
+    b.update();
+    this.affichage();
+  }
+}
   public void affichage(){
     Iterator<Boid> it=boids.iterator();
     while(it.hasNext()){
