@@ -35,7 +35,8 @@ testRectangleImGameSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestRectangleImGameSimulator.java
 testRectanglesSchellingSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestRectanglesSchellingSimulator.java
-
+testBoidSimulator :
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestBoidSimulator.java
 
 # Execution:
 # on peut taper directement la ligne de commande :
@@ -54,6 +55,8 @@ exeRectangleImGameSimulator:
 	java -classpath bin:bin/gui.jar TestRectangleImGameSimulator
 exeRectanglesSchellingSimulator:
 	java -classpath bin:bin/gui.jar TestRectanglesSchellingSimulator
+exeBoidSimulator:
+	java -classpath bin:bin/gui.jar TestBoidSimulator
 
 clean:
 	rm -rf bin/*.class
