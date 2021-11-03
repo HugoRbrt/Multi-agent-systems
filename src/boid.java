@@ -39,10 +39,11 @@ class boid{
     float distance=0;
     float desiredDistance=20;
     Vector forceRes=new Vector();
-    int count=0;
+    int count=0
+    Vector sum=new Vector();
     for(Boid other:list){
       distance=this.dist(other);
-      if(distance>0 &&distance>desiredDistance){
+      if(distance>0 &&distance<desiredDistance){
         Vector forceDist=Vector.sub(pos,other.pos);
         forceDist.normalize();
         forceRes.add(forceDist);
@@ -51,6 +52,80 @@ class boid{
     }
     if(count>0){
       sum.div(count);
+      sum.mag=maxMag;
+      Vector steer=Vector.sub(sum,this.speed);
+      steer.limit(maxForce);
+      applyForce(steer);
     }
+  }
+  void arrive(Vector Target){
+    Vector desired=Vector.sub(target, this.pos);
+    float d=desired.mag();
+    desired.normalize();
+    if(d<100){
+      float m=map(d,0,100,maxMag);
+      desired.mult(m);
+    }
+    else {
+      desired.mult(maxMag);
+    }
+    Vector steer=Vector.sub(desired,velocity);
+    steer.limit(maxForce);
+    applyForce(steer);
+    }
+
+
+
+  public Vector align(ArrayList<Boid> listBoid){ //fonction qui renvoie un vecteur steer qui permet au boid d'aller à la vitesse moyenne du groupe
+    Vector avgSpeed=new Vector(0,0);
+    Vector neighboutMaxDist=50;
+    for(Boid b:list){
+      float distToOther=Vector.sub(this.pos,other.pos);
+      if((distToOther>0)&&(distToOther)<neighboutMaxDist){
+          avgSpeed.add(b.speed);
+      }
+      else{
+        return new Vector(0,0);
+      }
+    }
+    avgSpeed.div(boids.size());
+    avgSpeed.setMag(maxMag);
+    Vector steer=Vector.sub(avgSpeed,velocity);
+    steer.limit(maxForce);
+    return steer;
+  }
+  public void cohesion(ArrayList<Boid> boids){
+    float neighboutMaxDist=50;
+    Vector sum=new Vector(0,0);
+    int count=0;
+    for(Boid other:boids){
+      float distToOther=Vector.dist(this.pos,other.pos);
+      if((distToOther>0)&&(distToOther)<neighboutMaxDist){
+        sum.add(other.pos);
+        count++;
+
+      }
+      if(count>0){
+        sum.div(count);
+        return seek(sum);
+      }
+      else {
+        return new Vector(0,0);
+      }
+    }
+  }
+  void flock(ArrayList<Boid> boids) {
+    Vector sep = separate(boids);
+    Vector ali = align(boids);
+    Vector coh = cohesion(boids);
+
+
+    sep.mult(1.5);
+    ali.mult(1.0);
+    coh.mult(1.0);
+
+    applyForce(sep);
+    applyForce(ali);
+    applyForce(coh);
   }
 }
