@@ -4,13 +4,10 @@ import java.awt.Point;
 import java.util.LinkedList;
 import java.awt.Point;
 import java.util.Random;
+import java.util.Iterator;
 
 class BoidSimulator implements Simulable{
-  import java.awt.Color;
-  import gui.* ;
-  import java.awt.Point;
-  import java.util.LinkedList;
-  import java.awt.Point;
+
   private Flock boids;
   private GUISimulator gui;
   private int HeightSize;
@@ -23,7 +20,7 @@ class BoidSimulator implements Simulable{
 		int l = this.gui.getPanelHeight()/HeightSize;
 		int c = this.gui.getPanelWidth()/WidthSize;
 		this.boids = new Flock();
-    Random randomInt;
+    Random r=new Random();
 		for(int i=0;i<20;i++){
       boids.add(new Boid(r.nextInt(100),r.nextInt(100),r.nextInt(20),r.nextInt(20)));
     }
@@ -31,17 +28,24 @@ class BoidSimulator implements Simulable{
   }
 @Override
 public void next(){
-  for(Boid b:listBoid){
-    b.flock(listBoid);
+  for(Boid b:boids.listBoid){
+    b.flock(boids.listBoid);
     b.update();
     this.affichage();
   }
 }
+@Override
+public void restart(){
+  for(Boid b:boids.listBoid){
+    b.pos=new Vector(0,0);
+    this.affichage();
+  }
+}
   public void affichage(){
-    Iterator<Boid> it=boids.iterator();
+    Iterator<Boid> it=boids.listBoid.iterator();
     while(it.hasNext()){
       Boid b=it.next();
-      gui.addGraphicalElement(new Oval(b.x,b.y,COLOR.BLACK,COLOR.WHITE));
+      gui.addGraphicalElement(new Oval((int)b.pos.x,(int)b.pos.y,Color.BLACK,Color.WHITE,10,10));
     }
   }
 }

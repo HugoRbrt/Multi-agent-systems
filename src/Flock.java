@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class Flock{
-  LinkedList<Boid> listBoid;
+  ArrayList<Boid> listBoid;
   public Flock(){
     listBoid= new ArrayList<Boid>();
 
