@@ -12,7 +12,7 @@ public class TestBoidSimulator{
 		int sizeHeight =30;
 		int sizeWidth =30;
 		int nbStates = 3;
-		BoidSimulator BoidSim=new BoidSImulator(gui,sizeHeight,sizeWidth);
+		BoidSimulator BoidSim=new BoidSimulator(gui,sizeHeight,sizeWidth);
 		//on choisit les rectangle dont on veut changer l'état initial
 		//on lance la simulation :
 		gui.setSimulable(BoidSim) ;
