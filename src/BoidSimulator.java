@@ -45,7 +45,7 @@ public void restart(){
     Iterator<Boid> it=boids.listBoid.iterator();
     while(it.hasNext()){
       Boid b=it.next();
-      gui.addGraphicalElement(new Oval((int)b.pos.x,(int)b.pos.y,Color.BLACK,Color.WHITE,10,10));
+      gui.addGraphicalElement(new Oval((int)b.pos.getX(),(int)b.pos.getY(),Color.BLACK,Color.WHITE,10,10));
     }
   }
 }
