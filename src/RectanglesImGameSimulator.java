@@ -37,21 +37,20 @@ class RectanglesImGameSimulator implements Simulable{
       this.r.newState();
   		this.affichage();
   	}
-  	public void affichage(){
+    @Override
+    public void restart(){
+      this.r.reInit();
+      this.affichage();
+    }
+    public void affichage(){
   		int c=0;
   		int l=0;
       for(Point n:this.r.getrectangle()){
         int nuance = 255-this.r.getcurrentState()[l][c]*255/this.r.getnbStates();
         gui.addGraphicalElement(new Rectangle((int)n.getX(),(int)n.getY(),new Color(nuance,nuance,nuance),new Color(nuance,nuance,nuance),HeightSize,WidthSize));
-  			c++;
-  			if(c==this.r.getcurrentState()[l].length){c=0;l++;}
+  			c++;//passage à la colonne suivante
+  			if(c==this.r.getcurrentState()[l].length){c=0;l++;}//passage a la ligne suivante lorsqu'on à rempli le derniere colonne
   		}
   	}
 
-  	@Override
-  	public void restart()
-  	{
-  		this.r.reInit();
-  		this.affichage();
-  	}
 }

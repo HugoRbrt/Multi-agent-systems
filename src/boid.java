@@ -3,19 +3,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 class Boid{
-  Vector pos; //premiere coordonnée de la position
-  Vector speed;// deuxieme coordonnée de la position
-  Vector acc;//l'acceleration
-  int masse; //masse d'un boid
-  int maxMag; //vitesse maximal d'une boids
-  int maxForce; // la norme max d'une force sur boid
+  Vecteur pos; //premiere coordonnée de la position
+  Vecteur speed;// deuxieme coordonnée de la position
+  Vecteur acc;//l'acceleration
+  float masse; //masse d'un boid
+  float maxMag; //vitesse maximal d'une boids
+  float maxForce; // la norme max d'une force sur boid
   public Boid(float x, float y, float vx, float vy){
-    pos= new Vector(x,y);
-    speed= new Vector(vx,vy);
-    acc=new Vector(0,0);
+    pos= new Vecteur(x,y);
+    speed= new Vecteur(vx,vy);
+    acc=new Vecteur(0,0);
     masse = 1;
+    maxMag=1000;
   }
 
+  public Boid clone(){
+    return new Boid(pos.getX(),pos.getY(),speed.getX(),speed.getY());
+  }
   public void limit(){
     if(speed.getMag()>maxMag){
       speed.setMag(maxMag);
@@ -26,17 +30,17 @@ class Boid{
     speed.limit(maxMag);
     pos.add(speed);
   }
-  public void applyForce(Vector force){
-    Vector massMultForce = new Vector(force);
+  public void applyForce(Vecteur force){
+    Vecteur massMultForce = new Vecteur(force);
     massMultForce.mult(masse);
     acc.add(massMultForce); // à un instant t, (somme des force)=m*acc
   }
-  public Vector seek(Vector target){ // fonction qui va diriger notre boid vers une cible
-    Vector desired=new Vector(target.getX(),target.getY()); // la destination désirée
+  public Vecteur seek(Vecteur target){ // fonction qui va diriger notre boid vers une cible
+    Vecteur desired=new Vecteur(target.getX(),target.getY()); // la destination désirée
     desired.sub(speed);
     desired.normalize(); // on normalise le vecteur steer pour que le boid ne se téleporte pas directement à la destination désirée
     desired.mult(maxMag); // on fait en sorte que la norme du vecteur steer soit égal à la vitesse max
-    Vector steer=new Vector(desired); // à l'approche de sa cible, une force steer va pousser le boid vers cette dernière
+    Vecteur steer=new Vecteur(desired); // à l'approche de sa cible, une force steer va pousser le boid vers cette dernière
     steer.sub(this.speed);
     steer.limit(maxForce);
     return steer;
@@ -45,56 +49,39 @@ class Boid{
     return (float)Math.sqrt((float)(Math.pow(pos.getX()-b.pos.getX(),2)+Math.pow((pos.getY()-b.pos.getY()),2)));
   }
 
-  public Vector separate(ArrayList<Boid> list){
-    float desiredDistance=20; //valeur choisi arbitrairement
+  public Vecteur separate(ArrayList<Boid> list){
+    float desiredDistance=15; //distance pour qu'un boid soit considéré comme trop près
     int count=0;
-    Vector forceRes=new Vector();
-    Vector sum=new Vector();
+    Vecteur sum=new Vecteur();
 
     for(Boid other:list){
       float distance=dist(other);
       if(distance>0 &&distance<desiredDistance){
-        Vector forceDist=new Vector(this.pos);
+        Vecteur forceDist=new Vecteur(this.pos);
         forceDist.sub(other.pos);
         forceDist.normalize();
         forceDist.div(distance);
-        forceRes.add(forceDist);
+
+        sum.add(forceDist);
         count++;
       }
     }
     if(count>0){
       sum.div(count);
       sum.setMag(maxMag);
-      Vector steer=new Vector(sum);
+      Vecteur steer=new Vecteur(sum);
       steer.sub(this.speed);
       steer.limit(maxForce);
       return steer;
     }
     else{
-      return new Vector(0,0);
+      return new Vecteur(0,0);
     }
   }
-  // void arrive(Vector target){
-  //   Vector desired=new Vector(target.x,target.y);
-  //   desired.sub(this.pos);
-  //   float d=desired.mag;
-  //   desired.normalize();
-  //   if(d<100){
-  //     float m=map(d,0,100,maxMag);
-  //     desired.mult(m);
-  //   }
-  //   else {
-  //     desired.mult(maxMag);
-  //   }
-  //   Vector steer=new Vector(desired.x,desired.y);
-  //   steer.sub(this.speed);
-  //   steer.limit(maxForce);
-  //   applyForce(steer);
-  //   }
-  public Vector align(ArrayList<Boid> listBoid){ //fonction qui renvoie un vecteur steer qui permet au boid d'aller à la vitesse moyenne du groupe
-    Vector avgSpeed=new Vector(0,0);
+  public Vecteur align(ArrayList<Boid> listBoid){ //fonction qui renvoie un vecteur steer qui permet au boid d'aller à la vitesse moyenne du groupe
+    Vecteur avgSpeed=new Vecteur(0,0);
     int count =0;
-    int neighboutMaxDist=50; //distance maximal pour qu'un boid soit considéré comme voisin (valeur arbitraire)
+    int neighboutMaxDist=50; //distance max de prise en compte des autres boids pour alignement
     for(Boid other: listBoid){
       float dist=dist(other);
       if((dist>0)&& dist<neighboutMaxDist){
@@ -105,42 +92,43 @@ class Boid{
     if(count>0){
       avgSpeed.div(count);
       avgSpeed.setMag(maxMag);
-      Vector steer=new Vector(avgSpeed);
+      Vecteur steer=new Vecteur(avgSpeed);
       steer.sub(this.speed);
       steer.limit(maxForce);
       return steer;
     }
     else{
-      return new Vector(0,0);
+      return new Vecteur(0,0);
     }
   }
-  public Vector cohesion(ArrayList<Boid> boids){
-    float neighboutMaxDist=50; //distance maximal pour qu'un boid soit considéré comme voisin (valeur arbitraire)
-    Vector sum=new Vector(0,0);
+  public Vecteur cohesion(ArrayList<Boid> boids){
+    float neighboutMaxDist=2000; //distance max de prise en compte des autres boids pour cohesion
+    float neighboutMinDist=200; //distance miin de prise en compte des autres boids pour cohesion
+    Vecteur sum=new Vecteur(0,0);
     int count=0;
     for(Boid other:boids){
       float dist=dist(other);
-      if(dist>0 && dist<neighboutMaxDist){
+      if(dist>neighboutMinDist && dist<neighboutMaxDist){
         sum.add(other.pos);
         count++;
       }
     }
       if(count>0){
         sum.div(count);
-        Vector steer=new Vector();
+        Vecteur steer=new Vecteur();
         return seek(sum);
       }
       else{
-        return new Vector(0,0);
+        return new Vecteur(0,0);
       }
   }
 
   void flock(ArrayList<Boid> boids) {
-    Vector sep=separate(boids);
-    Vector ali = align(boids);
-    Vector coh = cohesion(boids);
+    Vecteur sep=separate(boids);
+    Vecteur ali = align(boids);
+    Vecteur coh = cohesion(boids);
 
-    sep.mult((float)1.5);
+    sep.mult((float)1.0);
     ali.mult((float)1.0);
     coh.mult((float)1.0);
 
@@ -148,4 +136,22 @@ class Boid{
     applyForce(ali);
     applyForce(coh);
   }
+/*
+  void arrive(Vecteur target){
+    Vecteur desired=new Vecteur(target.getX(),target.getY());
+    desired.sub(this.pos);
+    float d=desired.getMag();
+    desired.normalize();
+    if(d<100){
+      float m=map(d,0,100,maxMag);
+      desired.mult(m);
+    }
+    else {
+      desired.mult(maxMag);
+    }
+    Vecteur steer=new Vecteur(desired.getX(),desired.getY());
+    steer.sub(this.speed);
+    steer.limit(maxForce);
+    applyForce(steer);
+  }*/
 }

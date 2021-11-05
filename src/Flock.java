@@ -9,4 +9,7 @@ public class Flock{
   public void add(Boid b){
     listBoid.add(b);
     }
+  public void clear(){
+    listBoid.clear();
+  }
 }
