@@ -10,7 +10,7 @@ public class TestBoidSimulator{
 		int sizeWidth =500;
 		GUISimulator gui = new GUISimulator(sizeHeight, sizeWidth, Color.BLACK);
 		//hauteur et largeur de la fenetre d'affichage :
-		BoidSimulator BoidSim = new BoidSimulator(gui,sizeHeight,sizeWidth);
+		BoidSimulator BoidSim = new BoidSimulator(gui,sizeHeight,sizeWidth,2,8);
 		//on choisit les rectangle dont on veut changer l'état initial
 		//on lance la simulation :
 		gui.setSimulable(BoidSim) ;

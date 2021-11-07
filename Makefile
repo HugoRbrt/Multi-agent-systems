@@ -37,6 +37,8 @@ testRectanglesSchellingSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestRectanglesSchellingSimulator.java
 testBoidSimulator :
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestBoidSimulator.java
+testEventManager :
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestEventManager.java
 
 # Execution:
 # on peut taper directement la ligne de commande :
@@ -57,6 +59,8 @@ exeRectanglesSchellingSimulator:
 	java -classpath bin:bin/gui.jar TestRectanglesSchellingSimulator
 exeBoidSimulator:
 	java -classpath bin:bin/gui.jar TestBoidSimulator
+exeEventManager:
+	java -classpath bin:bin/gui.jar TestEventManager
 
 clean:
 	rm -rf bin/*.class

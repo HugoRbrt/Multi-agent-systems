@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Flock{
   ArrayList<Boid> listBoid;
+
   public Flock(){
     listBoid= new ArrayList<Boid>();
 

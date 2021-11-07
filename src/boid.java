@@ -130,8 +130,8 @@ class Boid{
     Vecteur coh = cohesion(boids);
     //facteur de multiplication pour chaques forces
     float SEPmult    = (float)1.0;
-    float ALImult    = (float)1.0;
-    float COHmult    = (float)1.0;
+    float ALImult    = (float)1.2;
+    float COHmult    = (float)1.3;
     sep.mult(SEPmult);
     ali.mult(ALImult);
     coh.mult(COHmult);

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import gui.* ;
+import java.util.ArrayList;
 import java.awt.Point;
 import java.util.LinkedList;
 import java.awt.Point;
@@ -8,60 +9,52 @@ import java.util.Iterator;
 
 class BoidSimulator implements Simulable{
 //ATTRIBUTS
-  private Flock boids;
-  private Flock boidsInit;
+  private ArrayList<Flock> boids;
+  private ArrayList<Flock> boidsInit;
   private GUISimulator gui;
+  private EventManager manager;
 //CONSTRUCTEUR
-  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize){
+  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize, int nbFlock, int sizeOfFlock){
     this.gui = Gui;
-		this.boids = new Flock();
-    this.boidsInit = new Flock();
+		this.boids = new ArrayList<Flock>();
+    this.boidsInit = new ArrayList<Flock>();
+    this.manager = new EventManager();
     Random r=new Random();
-		for(int i=0;i<20;i++){
-      Boid b = new Boid(r.nextInt(HeightSize/3)+HeightSize/2,r.nextInt(WidthSize/3)+WidthSize/3,r.nextInt(5)-2,r.nextInt(5)-2);
-      boids.add(b);
-      boidsInit.add(b.clone());
+    for(int k=1;k<nbFlock+1;k++){
+      Flock f = new Flock();
+      Flock fI= new Flock();
+      for(int i=0;i<sizeOfFlock;i++){
+        Boid b = new Boid(r.nextInt(HeightSize/3)+HeightSize/2,r.nextInt(WidthSize/3)+WidthSize/3,r.nextInt(5)-2,r.nextInt(5)-2);
+        f.add(b);
+        fI.add(b.clone());
+      }
+      this.manager.addFirstEvent(new EventBoids(0,k,f,gui));
+      boids.add(f);
+      boidsInit.add(fI);
+
     }
-		this.affichage(Color.WHITE);
+		next();
   }
 //METHODES
   @Override
   public void next(){
-    this.affichage(Color.BLACK);//on supprime les formes précédentes
-    for(Boid b:boids.listBoid){
-      b.flock(boids.listBoid);
-    }
-    for(Boid s:boids.listBoid){
-      s.update();
-    }
-    this.affichage(Color.WHITE);//on affiche les nouvelles formes
+    manager.next();
   }
   @Override
   public void restart(){
-    this.affichage(Color.BLACK);//on supprime les formes précédentes
-    boids.clear();
-      // A CHOISIR ENTRE LES DEUX 5PAS LES 2 EN MËME TEMPS !
-            //si on veut revenir toujours au même état de départ :
-    /*
-    for(Boid b:boidsInit.listBoid){
-      boids.add(b.clone());
-      this.affichage(Color.WHITE);//on affiche les nouvelles formes
+    gui.addGraphicalElement(new Rectangle(gui.getPanelWidth()/2,gui.getPanelHeight()/2, Color.BLACK, Color.BLACK,2*gui.getPanelWidth(), 2*gui.getPanelHeight()));
+    //this.affichage(Color.BLACK);//on supprime les formes précédentes
+    Iterator<Flock> itF = boids.iterator();
+    Iterator<Flock> itFI = boidsInit.iterator();
+    manager.restart();
+    while(itF.hasNext()){
+      Flock f = itF.next();
+      Flock fI = itFI.next();
+      f.clear();
+      for(Boid b:fI.listBoid){
+        f.add(b.clone());
+      }
     }
-    */
-            //si on veut refaire une nouvelle simulation à chaque restart
-
-    Random r=new Random();
-    for(Boid b:boidsInit.listBoid){
-      boids.add(new Boid(r.nextInt(gui.getPanelHeight()/3)+gui.getPanelHeight()/2,r.nextInt(gui.getPanelWidth()/3)+gui.getPanelWidth()/3,r.nextInt(5)-2,r.nextInt(5)-2));
-      this.affichage(Color.WHITE);//on affiche les nouvelles formes
-    }
-
-  }
-  public void affichage(Color couleur){
-    Iterator<Boid> it=boids.listBoid.iterator();
-    while(it.hasNext()){
-      Boid b=it.next();
-      gui.addGraphicalElement(new Oval((int)b.pos.getX(),(int)b.pos.getY(),Color.BLACK,couleur,10,10));
-    }
+    manager.next();
   }
 }
