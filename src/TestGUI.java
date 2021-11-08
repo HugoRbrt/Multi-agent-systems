@@ -1,8 +1,7 @@
-
 import gui.*;
-
 import java.awt.Color;
 
+//fichier de test proposé par le sujet
 public class TestGUI {
 	public static void main(String[] args) {
 		GUISimulator ig = new GUISimulator(200, 200, Color.BLACK);

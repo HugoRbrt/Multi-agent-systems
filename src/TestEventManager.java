@@ -1,3 +1,4 @@
+//test proposé par le sujet
 public class TestEventManager {
   public static void main(String[] args) throws InterruptedException {
     // On crée un simulateur

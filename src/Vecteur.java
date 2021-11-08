@@ -1,5 +1,6 @@
 import  java.lang.Math;
 
+
 //un vecteur 2D possède 3 attributs : sa taille selon x, selon y et sa norme (ici noté mag)
 class Vecteur{
 //ATTRIBUTS

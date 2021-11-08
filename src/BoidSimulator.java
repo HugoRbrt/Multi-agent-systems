@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.util.Random;
 import java.util.Iterator;
 
+//BoidSimulator : gestion graphique de la simulation des boids
 class BoidSimulator implements Simulable{
 //ATTRIBUTS
   private ArrayList<Flock> boids;
@@ -14,7 +15,7 @@ class BoidSimulator implements Simulable{
   private GUISimulator gui;
   private EventManager manager;
 //CONSTRUCTEUR
-  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize, int nbFlock, int sizeOfFlock){
+  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize, int nbFlock, int sizeOfFlock){//création d'une simulation à partir d'un simulateur Gui et de nbFlock Flock ayant chacun sizeOfFlock Boids
     this.gui = Gui;
 		this.boids = new ArrayList<Flock>();
     this.boidsInit = new ArrayList<Flock>();
@@ -31,17 +32,16 @@ class BoidSimulator implements Simulable{
       this.manager.addFirstEvent(new EventBoids(0,k,f,gui));
       boids.add(f);
       boidsInit.add(fI);
-
     }
 		next();
   }
 //METHODES
   @Override
-  public void next(){
+  public void next(){//on avance la simulation d'1 pas de temps
     manager.next();
   }
   @Override
-  public void restart(){
+  public void restart(){//on revient à l'état initial de la simulation
     gui.addGraphicalElement(new Rectangle(gui.getPanelWidth()/2,gui.getPanelHeight()/2, Color.BLACK, Color.BLACK,2*gui.getPanelWidth(), 2*gui.getPanelHeight()));
     //this.affichage(Color.BLACK);//on supprime les formes précédentes
     Iterator<Flock> itF = boids.iterator();

@@ -24,7 +24,7 @@ public class EventManager{
   listEvent.add(e);
   listEventInit.add(e);
   }
-  private void addEvent(Event e){
+  public void addEvent(Event e){
     listEvent.add(e);
     }
   public void next(){
@@ -32,7 +32,8 @@ public class EventManager{
     TreeSet<Event> l = new TreeSet<Event>(new Comparateur());
     Event e = listEvent.pollFirst();//premier evenement à faire pas encore fait
     while(e!=null && e.getDate()<=currentDate){//tant qu'il y a des evenements et que sa date et est <= a currentDate
-      l.add(e.execute());//on exécute l'évenement
+      Event e1 = e.execute();
+      if(e1!=null){l.add(e1);}//on exécute l'évenement
       e = listEvent.pollFirst();//on passe à l'évenement suivant
     }
     listEvent.addAll(l);

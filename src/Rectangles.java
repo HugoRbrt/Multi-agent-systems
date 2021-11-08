@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.util.LinkedList;
 
+//Rectangles : ensembles des rectangles représentés par une liste de point qui ont chacun un état courant, passé et initial
 class Rectangles{
 //ATTRIBUTS
 	private LinkedList<Point> rectangle;//liste des rectangles de longeur correspondant au nombre de rectangle
@@ -8,29 +9,52 @@ class Rectangles{
 	private int[][] pastState;//ancien état des rectangles
 	private int[][] initState;// état initial des rectangles
 //CONSTRUCTEUR
-	public Rectangles(int ligne, int col) {//création de col*ligne rectangle
+	public Rectangles(int HeightRectangle,int WidthRectangle, int Heightgui, int Widthgui) {//constructeur : création de rectangle de taillle HeightRectangle*WidthRectangle uniformement répartille dans un cadre Heightgui*Widthgui
+		//l : nombre de rectangle par ligne, c : nombre de rectangle par colonne
+		int l = Heightgui/HeightRectangle;
+		int c = Widthgui/WidthRectangle;
+		//creation des tableaux et liste
+		this.currentState = new int[l][c];
+		this.pastState = new int[l][c];
+		this.initState = new int[l][c];
 		this.rectangle = new LinkedList<Point>();
-		this.currentState = new int[ligne][];
-		this.pastState = new int[ligne][];
-		this.initState = new int[ligne][];
-		for(int i=0;i<this.currentState.length;i++){
-			currentState[i]= new int[col];
-			pastState[i]   = new int[col];
-			initState[i]   = new int[col];
+		//initialisation liste et tableaux
+		for(int k=0;k<l-1;k++){
+			for(int i=0;i<c;i++){
+				add(new Point(HeightRectangle*i+HeightRectangle/2,WidthRectangle*k+WidthRectangle/2));
+			}
 		}
 	}
 //METHODES
-	public int[][] getcurrentState(){
-		return this.currentState;
+	public void setcurrentState(int l, int c, int value){//modifie la valeur courante du rectangle ligne l colonne c
+		if(l>-1 & c>-1 & l<currentState.length & c<currentState[0].length){
+			this.currentState[l][c] = value;
+		}
 	}
-//UNE DES MODIFS A FAIRE SERAIT DE FAIRE UN getpastState	(l,c) POUYR EVITER DE RENVOYER TOUT LE TABLEAU A CHAQUE FOIS
-	public int[][] getpastState(){
-		return this.pastState;
+	public void setpastState(int l, int c, int value){//modifie la valeur passé du rectangle ligne l colonne c
+		if(l>-1 & c>-1 & l<pastState.length & c<pastState[0].length){
+			this.pastState[l][c] = value;
+		}
 	}
-	public int[][] getinitState(){
-		return this.initState;
+	public int getcurrentState(int l, int c){//renvoie la valeur courante du rectangle ligne l colonne c
+		if(l>-1 & c>-1 & l<currentState.length & c<currentState[0].length){
+			return this.currentState[l][c];
+		}
+		return 0;
 	}
-	public LinkedList<Point> getrectangle(){
+	public int getcurrentStateLength(){//renvoie la taille du tableau currentState = nb de lignes
+		return currentState.length;
+	}
+	public int getcurrentStateColonnesLength(){//renvoie la taille du tableau currentState[0] = nb de colonne
+		return currentState[0].length;
+	}
+	public int getpastState(int l, int c){//renvoie la valeur passé du rectangle ligne l colonne c
+		if(l>-1 & c>-1 & l<pastState.length & c<pastState[0].length){
+			return this.pastState[l][c];
+		}
+		return 0;
+	}
+	public LinkedList<Point> getrectangle(){//renvoie la liste des points représentant la position de chaques rectangles
 		return this.rectangle;
 	}
 	public void add(Point p) {//permet d'ajouter la coordonnée d'un rectangle p à la liste des rectangles deja existant et de mettre, par défaut, l'état à 0
@@ -42,13 +66,10 @@ class Rectangles{
 		this.pastState[numLigne][numCol]   =0;
 		this.currentState[numLigne][numCol]=0;
 	}
-	public void modifyState(int l, int c, int state){//modifie l'état initial d'un rectangle ligne l colonne c pour le mettre à l'état state
+	public void setState(int l, int c, int state){//modifie l'état initial d'un rectangle ligne l colonne c pour le mettre à l'état state
 		currentState[l][c] = state;
 		pastState[l][c] = state;
 		initState[l][c] = state;
-	}
-	public void modifyCurrentState(int l, int c, int state){//modifie l'état initial d'un rectangle ligne l colonne c pour le mettre à l'état state
-		currentState[l][c] = state;
 	}
 	public void newState() {//calcul et met à jour l'état des rectangles pour l'étape suivante
 		for(int l=0;l<currentState.length;l++) {
@@ -83,7 +104,6 @@ class Rectangles{
 			}
 		}
 	}
-
 	@Override
 	public String toString() {//on retourne les coordonnées de chacun des rectangles de l'objet
 		String a = "";
@@ -93,5 +113,4 @@ class Rectangles{
 		}
 		return a;
 	}
-
 }

@@ -1,5 +1,6 @@
 import java.awt.Point;
 
+
 //Test de la partie calculatoire de la simulation (fichier associé : Balls)
 class TestBalls{
 	public static void main(String[] args) {

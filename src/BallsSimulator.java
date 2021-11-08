@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.LinkedList;
 import java.awt.Point;
 
+
 //BallsSimulator : gestion graphique de la simulation des balles
 public class BallsSimulator implements Simulable {
 //ATTRIBUTS
@@ -20,10 +21,12 @@ public class BallsSimulator implements Simulable {
 	}
 	@Override
 	public void next() {//on avance la simulation d'1 pas de temps
+	int dx = 10;
+	int dy = 10;
 		for(Point n:this.b.getpoint()){// on efface les formes correspondant à chaques points affichées aux anciennes coordonnées
 			gui.addGraphicalElement(new Oval((int)n.getX(),(int)n.getY(),Color.BLACK,Color.BLACK,12));
 			}
-    b.translate(10,10);//On avance dans la simulation (on délègue la partie calculatoire à la classe Balls)
+    b.translate(dx,dy,gui.getPanelWidth(),gui.getPanelHeight());//On avance dans la simulation (on délègue la partie calculatoire à la classe Balls)
 		for(Point n:this.b.getpoint()){// on affiche les formes correspondant à chaques points affichées aux nouvelles coordonnées
 			gui.addGraphicalElement(new Oval((int)n.getX(),(int)n.getY(),Color.WHITE,Color.BLACK,10));
 			}

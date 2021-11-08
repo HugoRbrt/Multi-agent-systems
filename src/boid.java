@@ -2,6 +2,7 @@ import  java.lang.Math;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+//Boids : élément ayant une position, vitesse, accélaration et masse. Limité par une vitesse max et une force max que l'on peut lui appliquer
 class Boid{
   Vecteur pos; //premiere coordonnée de la position
   Vecteur speed;// deuxieme coordonnée de la position
@@ -9,7 +10,7 @@ class Boid{
   float masse; //masse d'un boid
   float maxMag; //vitesse maximal d'une boids
   float maxForce; // la norme max d'une force sur boid
-  public Boid(float x, float y, float vx, float vy){
+  public Boid(float x, float y, float vx, float vy){//constructeur : initialise la position et la vitesse du boids, sa masse à 1 et les limitations sont appliqué expérimentalement (pour avoir une simulation visuellement parlante)
     pos= new Vecteur(x,y);
     speed= new Vecteur(vx,vy);
     acc=new Vecteur(0,0);
@@ -17,29 +18,28 @@ class Boid{
     maxMag=10;
     maxForce=(float)0.03;
   }
-
-  public Boid clone(){
+  public Boid clone(){//renvoie un nouveau Boids dont les propriétés sont identique à this
     return new Boid(pos.getX(),pos.getY(),speed.getX(),speed.getY());
   }
-  public void limit(){
+  public void limit(){//limite la vitesse du boids
     if(speed.getMag()>maxMag){
       speed.setMag(maxMag);
     }
   }
-  public float dist(Boid b){
+  public float dist(Boid b){//renvoie la distance entre this et b
     return (float)Math.sqrt((float)(Math.pow(pos.getX()-b.pos.getX(),2)+Math.pow((pos.getY()-b.pos.getY()),2)));
   }
-  public void update(){ // à chaque frame, on actualise la position du boid, qui correspond à la position du boid + la distance parcourue en 1s (qui est la vitesse)
+  public void update(){ // on actualise la position du boid, qui correspond à la position du boid + la distance parcourue en 1s (qui est la vitesse)
     speed.add(acc);
     speed.limit(maxMag);
     pos.add(speed);
   }
-  public void applyForce(Vecteur force){
+  public void applyForce(Vecteur force){//on applique force sur le Boids (ce qui modifie l'accélération du Boids selon le PFD)
     Vecteur massMultForce = new Vecteur(force);
     massMultForce.mult(masse);
     acc.add(massMultForce); // à un instant t, (somme des force)=m*acc
   }
-  public Vecteur seek(Vecteur target){ // fonction qui va diriger notre boid vers une cible
+  public Vecteur seek(Vecteur target){ // fonction qui va diriger notre boid vers une cible target
     Vecteur desired=new Vecteur(target.getX(),target.getY()); // la destination désirée
     desired.sub(pos);
     desired.normalize(); // on normalise le vecteur steer pour que le boid ne se téleporte pas directement à la destination désirée
@@ -50,11 +50,10 @@ class Boid{
     return steer;
   }
 
-  public Vecteur separate(ArrayList<Boid> list){
+  public Vecteur separate(ArrayList<Boid> list){//force qui a tendance à séparer les Boids lorsque les Boids dans list sont trop proche de this
     Vecteur sum=new Vecteur();
     int count=0;
-    float desiredDistance=50; //distance pour qu'un boid soit considéré comme trop près
-
+    float desiredDistance=50; //distance pour qu'un boid soit considéré comme trop près(valeur définit expérimentalement pour avoir une simulation visuellement parlante)
     for(Boid other:list){
       float distance=dist(other);
       if(distance>0 &&distance<desiredDistance){
@@ -79,10 +78,10 @@ class Boid{
       return new Vecteur(0,0);
     }
   }
-  public Vecteur align(ArrayList<Boid> listBoid){ //fonction qui renvoie un vecteur steer qui permet au boid d'aller à la vitesse moyenne du groupe
+  public Vecteur align(ArrayList<Boid> listBoid){//force qui a tendance à aligner l'orientation des Boids lorsque les Boids dans list sont suffisament proche de this
     Vecteur sum=new Vecteur();
     int count =0;
-    int neighboutMaxDist=500; //distance max de prise en compte des autres boids pour alignement
+    int neighboutMaxDist=500;  //distance pour qu'un boid soit considéré comme trop loin (valeur définit expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
 
     for(Boid other: listBoid){
       float dist=dist(other);
@@ -103,9 +102,9 @@ class Boid{
       return new Vecteur(0,0);
     }
   }
-  public Vecteur cohesion(ArrayList<Boid> boids){
-    float neighboutMaxDist=200; //distance max de prise en compte des autres boids pour cohesion
-    float neighboutMinDist=30; //distance miin de prise en compte des autres boids pour cohesion
+  public Vecteur cohesion(ArrayList<Boid> boids){//force qui a tendance à rapprocher les Boids lorsque les Boids dans list sont trop loin de this
+    float neighboutMaxDist=200;  //distance pour qu'un boid soit considéré comme trop loin(valeur définit expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
+    float neighboutMinDist=30;  //distance pour qu'un boid soit considéré comme trop près(valeur définit expérimentalement pour avoir une simulation visuellement parlante) pour appliquer le force
     Vecteur sum=new Vecteur(0,0);
     int count=0;
     for(Boid other:boids){
@@ -124,7 +123,7 @@ class Boid{
       }
   }
 
-  void flock(ArrayList<Boid> boids) {
+  void flock(ArrayList<Boid> boids) {//calcul les forces s'exercant la la liste boids et applique ses forces
     Vecteur sep=separate(boids);
     Vecteur ali = align(boids);
     Vecteur coh = cohesion(boids);
@@ -135,29 +134,9 @@ class Boid{
     sep.mult(SEPmult);
     ali.mult(ALImult);
     coh.mult(COHmult);
-    // System.out.println(coh.getX());
-    // System.out.println(ali.getX());
-    // System.out.println(sep.getX());
+
     applyForce(sep);
     applyForce(ali);
     applyForce(coh);
   }
-/*
-  void arrive(Vecteur target){
-    Vecteur desired=new Vecteur(target.getX(),target.getY());
-    desired.sub(this.pos);
-    float d=desired.getMag();
-    desired.normalize();
-    if(d<100){
-      float m=map(d,0,100,maxMag);
-      desired.mult(m);
-    }
-    else {
-      desired.mult(maxMag);
-    }
-    Vecteur steer=new Vecteur(desired.getX(),desired.getY());
-    steer.sub(this.speed);
-    steer.limit(maxForce);
-    applyForce(steer);
-  }*/
 }

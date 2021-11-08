@@ -3,16 +3,20 @@ import java.util.Iterator;
 import gui.* ;
 import java.awt.Point;
 
+
 public class EventBoids extends Event {
+//ATTRIBUTS
   private Flock boids;
   private GUISimulator gui;
-  public EventBoids(long date, int pas, Flock b, GUISimulator Gui){
-    super(date) ;
+//CONSTRUCTEUR
+  public EventBoids(long date, int pas, Flock b, GUISimulator Gui){//constructeur : créer un événement à la date date, son pas, le Flock et le Gui associé
+    super(date);
     super.SetPasDeTemps(pas) ;
     this.boids = b;
     this.gui =  Gui;
   }
-  public EventBoids execute () {
+//METHODES
+  public EventBoids execute () {//exécute l'évenement en mettant a jour sa position et en abstract ffichant la nouvelle position
     this.affichage(Color.BLACK);//on supprime les formes précédentes
     for(Boid b:boids.listBoid){
       b.flock(boids.listBoid);
@@ -25,7 +29,7 @@ public class EventBoids extends Event {
     EventBoids e = new EventBoids(getDate()+super.getPas(),super.getPas(),boids,gui);
     return e;
   }
-  public void affichage(Color couleur){
+  public void affichage(Color couleur){//affiche la position des boids dans le Flock
     Color c = couleur;
     if(!couleur.equals(Color.BLACK)){
       c = new Color((int)(couleur.getRed()*getPas()/2)%255,(int)(couleur.getGreen()*getPas()/3)%255,(int)(couleur.getBlue()*getPas()/4)%255);
