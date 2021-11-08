@@ -13,7 +13,6 @@ public class EventManager{
   private long currentDate;
   TreeSet<Event> listEvent;
   TreeSet<Event> listEventInit;
-  TreeSet<Event> listEventErased;
 //CONSTRUCTEUR
   public EventManager(){
     currentDate = 0;

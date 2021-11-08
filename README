@@ -7,11 +7,21 @@
 - doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
 - Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
 ============================
+
 GUIDE UTILISATION : 
 - Jouons à la balle (question 1 à 4) : 
-	on lance les commandes : make testBallsSimulator
-			   PUIS make exeBallsSimulator 	
-	Pour changer les conditions initiales,  on écrit liste.add(new Point(x,y)); pour ajouter une balle à la position initiale (x,y)
+   Les Balles : 
+	on lance la commande : make testBalls | make exeBalls
+	On peut : 
+		- changer les coordonnées initiales des points p1,p2,p3
+		- ajouter des points P par l'appel au constructeur Point P = new Point(x,y) puis b.add(P)
+		- changer les valeurs de translation dans b.translate(a,b)
+   Animons un peu tout cela, C'est plus joli en affichant : 
+	on lance la commande : make testBallsSimulator | make exeBallsSimulator	
+	On peut :
+		- changer les conditions initiales,  on écrit liste.add(new Point(x,y))
+		- ajouter une balle à la position initiale (x,y)
+		- changer les valeurs de translation à chaque next (fichier Balls.Simulator, ligne 26)
 
 - Le jeu de la vie de Conway (question 5) :
 	on lance les commandes : make testRectangleSimulator
