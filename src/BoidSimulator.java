@@ -15,7 +15,7 @@ class BoidSimulator implements Simulable{
   private GUISimulator gui;
   private EventManager manager;
 //CONSTRUCTEUR
-  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize, int nbFlock, int sizeOfFlock){//création d'une simulation à partir d'un simulateur Gui et de nbFlock Flock ayant chacun sizeOfFlock Boids
+  public BoidSimulator(GUISimulator Gui,int HeightSize, int WidthSize, int nbFlock, int sizemaxOfFlock){//création d'une simulation à partir d'un simulateur Gui et de nbFlock Flock ayant chacun entre 0 et sizemaxOfFlock Boids
     this.gui = Gui;
 		this.boids = new ArrayList<Flock>();
     this.boidsInit = new ArrayList<Flock>();
@@ -24,7 +24,8 @@ class BoidSimulator implements Simulable{
     for(int k=1;k<nbFlock+1;k++){
       Flock f = new Flock();
       Flock fI= new Flock();
-      for(int i=0;i<sizeOfFlock;i++){
+      int size = (int)(sizemaxOfFlock*Math.random());
+      for(int i=0;i<size;i++){
         Boid b = new Boid(r.nextInt(HeightSize/3)+HeightSize/2,r.nextInt(WidthSize/3)+WidthSize/3,r.nextInt(5)-2,r.nextInt(5)-2);
         f.add(b);
         fI.add(b.clone());
@@ -42,7 +43,7 @@ class BoidSimulator implements Simulable{
   }
   @Override
   public void restart(){//on revient à l'état initial de la simulation
-    gui.addGraphicalElement(new Rectangle(gui.getPanelWidth()/2,gui.getPanelHeight()/2, Color.BLACK, Color.BLACK,2*gui.getPanelWidth(), 2*gui.getPanelHeight()));
+    gui.addGraphicalElement(new Rectangle(gui.getPanelWidth()/2,gui.getPanelHeight()/2, Color.BLACK, Color.BLACK,3*gui.getPanelWidth(), 3*gui.getPanelHeight()));
     //this.affichage(Color.BLACK);//on supprime les formes précédentes
     Iterator<Flock> itF = boids.iterator();
     Iterator<Flock> itFI = boidsInit.iterator();

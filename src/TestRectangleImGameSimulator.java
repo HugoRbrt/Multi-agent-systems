@@ -9,8 +9,8 @@ public class TestRectangleImGameSimulator{
 //INITIALISATION DES VARIABLES
 		GUISimulator gui = new GUISimulator(500, 500, Color.BLACK);
 		//hauteur et largeur des rectangles :
-		int sizeHeight =30;
-		int sizeWidth =30;
+		int sizeHeight =50;
+		int sizeWidth =50;
 		int nbStates = 3;
 		RectanglesImGameSimulator newRectImSim=new RectanglesImGameSimulator(gui,sizeHeight,sizeWidth,nbStates);
 		//on choisit les rectangle dont on veut changer l'état initial

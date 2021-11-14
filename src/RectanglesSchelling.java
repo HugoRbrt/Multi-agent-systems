@@ -88,8 +88,11 @@ class RectanglesSchelling extends Rectangles{
   }
   private void demenagement(int ligne, int colonne){//déménage la case (ligne,colonne) vers une case vacante
     int[] caseVacante = new int[2];
-    caseVacante = this.vacants.poll();
-    this.setcurrentState(caseVacante[0],caseVacante[1],super.getpastState(ligne, colonne));//la famille est désormais dans la case vacante
-    this.setcurrentState(ligne,colonne,0);//la case de la famille avant déménagement devient alors vacante
+    if(vacants.size()==0){System.out.println("Nombre de case vide insuffisante, déméngamenet non effectué !");}
+    else{
+      caseVacante = this.vacants.poll();
+      this.setcurrentState(caseVacante[0],caseVacante[1],super.getpastState(ligne, colonne));//la famille est désormais dans la case vacante
+      this.setcurrentState(ligne,colonne,0);//la case de la famille avant déménagement devient alors vacante
+    }
   }
 }

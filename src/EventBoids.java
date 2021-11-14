@@ -16,7 +16,7 @@ public class EventBoids extends Event {
     this.gui =  Gui;
   }
 //METHODES
-  public EventBoids execute () {//exécute l'évenement en mettant a jour sa position et en abstract ffichant la nouvelle position
+  public EventBoids execute () {//exécute l'évenement en mettant a jour sa position et en affichant la nouvelle position
     this.affichage(Color.BLACK);//on supprime les formes précédentes
     for(Boid b:boids.listBoid){
       b.flock(boids.listBoid);

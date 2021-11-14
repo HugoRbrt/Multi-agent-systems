@@ -9,15 +9,15 @@ public class TestRectanglesSchellingSimulator{
 //INITIALISATION DES VARIABLES
 		GUISimulator gui = new GUISimulator(500, 500, Color.BLACK);
 		//hauteur et largeur des rectangles :
-		int sizeHeight =30;
-		int sizeWidth =30;
+		int sizeHeight =50;
+		int sizeWidth =50;
 		int nbStates = 7;
-		int k = 5;
+		int k = 6;
 		RectanglesSchellingSimulator newRectImSim=new RectanglesSchellingSimulator(gui,sizeHeight,sizeWidth,nbStates,k);
 		//on choisit les rectangle dont on veut changer l'état initial
 		for(int l=0;l<newRectImSim.r.getcurrentStateLength();l++){
 			for(int c=0;c<newRectImSim.r.getcurrentStateColonnesLength();c++){
-				if(1<Math.random()*7){//environ la moitié des cases sont vides
+				if(1<Math.random()*10){//environ 10% des cases sont vides
 					newRectImSim.setState(l,c,(int)(1+Math.random()*(newRectImSim.r.getnbColor())));//ici la simulation est aléatoire
 				}
 				else{

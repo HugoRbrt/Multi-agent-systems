@@ -1,13 +1,3 @@
- Ensimag 2A POO - TPL
-============================
-- src: contient les classes fournies par les enseignants 
-  -> TestGUI.java : cree une fenetre graphique "Invaders", pas de simulation
-  Et c'est tout, en fait!
-- bin/gui.jar: archive Java contenant les classes de l'interface graphique. Voir un exemple d'utilisation dans TestGUI.java
-- doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
-- Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
-============================
-
 GUIDE UTILISATION : 
 - Jouons à la balle (question 1 à 4) : 
    Les Balles : 
@@ -22,20 +12,20 @@ GUIDE UTILISATION :
 		- changer les conditions initiales,  on écrit liste.add(new Point(x,y))
 		- ajouter une balle à la position initiale (x,y)
 		- changer les valeurs de translation à chaque next (fichier Balls.Simulator, ligne 26)
-
+===================================================================================================
 - Le jeu de la vie de Conway (question 5) :
 	on lance la commande : make RectangleSimulator
 	On peut : 
 	- changer la tailles des rectangles en modifiant les valeurs de sizeWidth et sizeHeight
 	- changer les conditions initiales en écrivant newRectSim.setState1(l,c); pour mettre à 1 l'état initiale du rectangle case ligne l colonne c
-
+===================================================================================================
 - Le jeu de l’immigration (question 6) : 
 	on lance la commande : make RectangleImGameSimulator
 	On peut : 
 	- changer la tailles des rectangles en modifiant les valeurs de sizeWidth et sizeHeight
 	- changer le n ombre d'état en modifiant la valeur de nbStates
 	- changer les conditions initiales du rectangle ligne l colonne c à l'état n en écrivant newRectImSim.setState(l,c,n)
-
+===================================================================================================
 - Le jeu de l’immigration (question 7) : 
 	on lance la commande : make RectanglesSchellingSimulator
 	On peut : 
@@ -43,7 +33,7 @@ GUIDE UTILISATION :
 	- changer le n ombre d'état en modifiant la valeur de nbStates
 	- changer le seuil k 
 	- changer les conditions initiales du rectangle ligne l colonne c à l'état n en écrivant newRectImSim.setState(l,c,n)
-
+===================================================================================================
 - Un Modèle d'essaims : les poids (question 8-12) : 
 	on lance la commande : make BoidSimulator
 	On peut : 

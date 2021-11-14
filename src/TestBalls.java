@@ -16,12 +16,13 @@ class TestBalls{
 		System.out.println(b.toString());
 
 		//translate de 0 en x et -1 en y
-		b.translate(0, -1);
+		//xmax et ymax sont définit en 1000 pour s'assurer qu'il n'y ait pas de rebond
+		b.translate(0, -1,1000,1000);
 		System.out.println("*** y-=1 pour tous ***");
 		System.out.println(b.toString());
 
 		//translate de 2 en x et 0 en y
-		b.translate(2, 0);
+		b.translate(2, 0,1000,1000);
 		System.out.println("*** x+=2 pour tous ***");
 		System.out.println(b.toString());
 		//replace toutes les balles au centre
