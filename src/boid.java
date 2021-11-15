@@ -2,13 +2,13 @@ import  java.lang.Math;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-//Boids : élément ayant une position, vitesse, accélaration et masse. Limité par une vitesse max et une force max que l'on peut lui appliquer
+//Boid : élément ayant une position, vitesse, accélaration et masse. Limité par une vitesse max et une force max que l'on peut lui appliquer
 class Boid{
-  Vecteur pos; //premiere coordonnée de la position
-  Vecteur speed;// deuxieme coordonnée de la position
+  Vecteur pos; //position du boid
+  Vecteur speed;// vecteur vitesse du boid
   Vecteur acc;//l'acceleration
   float masse; //masse d'un boid
-  float maxMag; //vitesse maximal d'une boids
+  float maxMag; //vitesse maximale d'une boids
   float maxForce; // la norme max d'une force sur boid
   public Boid(float x, float y, float vx, float vy){//constructeur : initialise la position et la vitesse du boids, sa masse à 1 et les limitations sont appliqué expérimentalement (pour avoir une simulation visuellement parlante)
     pos= new Vecteur(x,y);
@@ -18,7 +18,7 @@ class Boid{
     maxMag=10;
     maxForce=(float)0.03;
   }
-  public Boid clone(){//renvoie un nouveau Boids dont les propriétés sont identique à this
+  public Boid clone(){//renvoie un nouveau Boid dont les propriétés sont identique à this
     return new Boid(pos.getX(),pos.getY(),speed.getX(),speed.getY());
   }
   public void limit(){//limite la vitesse du boids
@@ -34,7 +34,7 @@ class Boid{
     speed.limit(maxMag);
     pos.add(speed);
   }
-  public void applyForce(Vecteur force){//on applique force sur le Boids (ce qui modifie l'accélération du Boids selon le PFD)
+  public void applyForce(Vecteur force){//on applique force sur le Boid (ce qui modifie l'accélération du Boids selon le PFD)
     Vecteur massMultForce = new Vecteur(force);
     massMultForce.mult(masse);
     acc.add(massMultForce); // à un instant t, (somme des force)=m*acc
@@ -78,10 +78,10 @@ class Boid{
       return new Vecteur(0,0);
     }
   }
-  public Vecteur align(ArrayList<Boid> listBoid){//force qui a tendance à aligner l'orientation des Boids lorsque les Boids dans list sont suffisament proche de this
+  public Vecteur align(ArrayList<Boid> listBoid){//force qui a tendance à aligner l'orientation des Boids lorsque les Boids dans list sont suffisament proches de this
     Vecteur sum=new Vecteur();
     int count =0;
-    int neighboutMaxDist=500;  //distance pour qu'un boid soit considéré comme trop loin (valeur définit expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
+    int neighboutMaxDist=500;  //distance pour qu'un boid soit considéré comme trop loin (valeur définie expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
 
     for(Boid other: listBoid){
       float dist=dist(other);
@@ -102,9 +102,9 @@ class Boid{
       return new Vecteur(0,0);
     }
   }
-  public Vecteur cohesion(ArrayList<Boid> boids){//force qui a tendance à rapprocher les Boids lorsque les Boids dans list sont trop loin de this
-    float neighboutMaxDist=200;  //distance pour qu'un boid soit considéré comme trop loin(valeur définit expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
-    float neighboutMinDist=30;  //distance pour qu'un boid soit considéré comme trop près(valeur définit expérimentalement pour avoir une simulation visuellement parlante) pour appliquer le force
+  public Vecteur cohesion(ArrayList<Boid> boids){//force qui a tendance à rapprocher les Boids lorsque les Boids dans list sont trop loins de this
+    float neighboutMaxDist=200;  //distance pour qu'un boid soit considéré comme trop loin(valeur définie expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
+    float neighboutMinDist=30;  //distance pour qu'un boid soit considéré comme trop près(valeur définie expérimentalement pour avoir une simulation visuellement parlante) pour appliquer la force
     Vecteur sum=new Vecteur(0,0);
     int count=0;
     for(Boid other:boids){
@@ -123,11 +123,11 @@ class Boid{
       }
   }
 
-  void flock(ArrayList<Boid> boids) {//calcul les forces s'exercant la la liste boids et applique ses forces
+  void flock(ArrayList<Boid> boids) {//calcule les forces s'exercant par la liste boids et applique ces forces
     Vecteur sep=separate(boids);
     Vecteur ali = align(boids);
     Vecteur coh = cohesion(boids);
-    //facteur de multiplication pour chaques forces
+    //facteur de multiplication pour chaque force
     float SEPmult    = (float)1.0;
     float ALImult    = (float)1.2;
     float COHmult    = (float)1.3;

@@ -8,7 +8,7 @@ public class Flock{
     listBoid= new ArrayList<Boid>();
 
     }
-  public void add(Boid b){//ajout d'un boids au flock
+  public void add(Boid b){//ajout d'un boid au flock
     listBoid.add(b);
     }
   public void clear(){//suppression de tous les boids du flock

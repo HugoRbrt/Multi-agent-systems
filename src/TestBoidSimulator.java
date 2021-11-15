@@ -10,7 +10,7 @@ public class TestBoidSimulator{
 		int sizeHeight =500;
 		int sizeWidth =500;
 		int nbFlock = 2;//nombre de groupe de boids
-		int nbBoids = 8;//nombre de boids par groupe
+		int nbBoids = 20;//nombre de boids par groupe
 		GUISimulator gui = new GUISimulator(sizeHeight, sizeWidth, Color.BLACK);
 		//hauteur et largeur de la fenetre d'affichage :
 		BoidSimulator BoidSim = new BoidSimulator(gui,sizeHeight,sizeWidth,nbFlock,nbBoids);

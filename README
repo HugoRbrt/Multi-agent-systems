@@ -8,6 +8,7 @@ GUIDE UTILISATION :
 		- changer les valeurs de translation dans b.translate(a,b)
    Animons un peu tout cela, C'est plus joli en affichant : 
 	on lance la commande : make BallsSimulator 
+	Une fenêtre apparait, appuyer sur lecture pour lancer l'animation.
 	On peut :
 		- changer les conditions initiales,  on écrit liste.add(new Point(x,y))
 		- ajouter une balle à la position initiale (x,y)
