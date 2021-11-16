@@ -14,7 +14,7 @@ class Balls{
 		this.point = new LinkedList<Point>();
 		this.sens = new LinkedList<Point>();//permet de prendre en compte l'orientation de la balle lorsqu'elle rebondi contre une parois
 		this.pointInit = new LinkedList<Point>();
-		//Le 1er point est ainsi localisé aux valeurs contenu dans la première case de la liste point, initialisé dans la première case de pointInit et se déplace dans le sens indiqué dans la première case de la liste Sens
+		//Le 1er point est ainsi localisé aux valeurs contenues dans la première case de la liste point, initialisé dans la première case de pointInit et se déplace dans le sens indiqué dans la première case de la liste Sens
 		//idem pour le point 2 dans la deuxieme case de chaque liste etc.
 	}
 //METHODES
@@ -42,7 +42,7 @@ class Balls{
 		sens.clear();
 		for(Point b : pointInit){//on clone l'ensemble de la liste
 			point.add(new Point((int)b.getX(),(int)b.getY()));
-			sens.add(new Point(1,1));//par défaut chaques point va dans le sens positif de chaques axes
+			sens.add(new Point(1,1));//par défaut chaque point va dans le sens positif de chaque axe
 		}
 	}
 	@Override

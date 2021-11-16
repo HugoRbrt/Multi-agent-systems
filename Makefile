@@ -23,12 +23,12 @@
 
 all: testGUI testBalls testBallsSimulator testRectangleSimulator testRectangleImGameSimulator testRectanglesSchellingSimulator testBoidSimulator testEventManager
 GUI : testGUI exeGUI
-Balls : testBalls exeBalls
+BallsPrint : testBalls exeBalls
 BallsSimulator : testBallsSimulator exeBallsSimulator
-RectangleSimulator : testRectangleSimulator exeRectangleSimulator
-RectangleImGameSimulator : testRectangleImGameSimulator exeRectangleImGameSimulator
-RectanglesSchellingSimulator : testRectanglesSchellingSimulator exeRectanglesSchellingSimulator
-BoidSimulator : testBoidSimulator exeBoidSimulator
+Conway : testRectangleSimulator exeRectangleSimulator
+ImmigrationGame : testRectangleImGameSimulator exeRectangleImGameSimulator
+Schelling : testRectanglesSchellingSimulator exeRectanglesSchellingSimulator
+Boid : testBoidSimulator exeBoidSimulator
 EventManager : testEventManager exeEventManager
 
 testGUI:

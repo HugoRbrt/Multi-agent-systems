@@ -24,7 +24,7 @@ class BoidSimulator implements Simulable{
     for(int k=1;k<nbFlock+1;k++){
       Flock f = new Flock();
       Flock fI= new Flock();
-      int size = (int)(sizemaxOfFlock*Math.sqrt(Math.random()));//ont utilise sqrt pour diminuer les chances d'avoir 0 ou 1 boid dans un flock (peu interessant lors de la simulation)
+      int size = (int)(sizemaxOfFlock*Math.random());
       for(int i=0;i<size;i++){
         Boid b = new Boid(r.nextInt(HeightSize/3)+HeightSize/2,r.nextInt(WidthSize/3)+WidthSize/3,r.nextInt(5)-2,r.nextInt(5)-2);
         f.add(b);

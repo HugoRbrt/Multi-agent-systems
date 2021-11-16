@@ -1,45 +1,49 @@
 GUIDE UTILISATION : 
 - Jouons à la balle (question 1 à 4) : 
    Les Balles : 
-	on lance la commande : make Balls
+	on lance la commande : make BallsPrint
 	On peut : 
 		- changer les coordonnées initiales des points p1,p2,p3
 		- ajouter des points P par l'appel au constructeur Point P = new Point(x,y) puis b.add(P)
-		- changer les valeurs de translation dans b.translate(a,b)
+		- changer les valeurs de translation dx et dy dans BallsSimulator.java
+
    Animons un peu tout cela, C'est plus joli en affichant : 
 	on lance la commande : make BallsSimulator 
-	Une fenêtre apparait, appuyer sur lecture pour lancer l'animation.
-	On peut :
+	Dans TestBallsSimulator.java  on peut :
 		- changer les conditions initiales,  on écrit liste.add(new Point(x,y))
 		- ajouter une balle à la position initiale (x,y)
+		- changer la taille de la fenêtre de simulation en modifiant guiWidth et guiHeight
 		- changer les valeurs de translation à chaque next (fichier Balls.Simulator, ligne 26)
 ===================================================================================================
 - Le jeu de la vie de Conway (question 5) :
-	on lance la commande : make RectangleSimulator
-	On peut : 
+	on lance la commande : make Conway
+	Dans TestRectangleSimulator.java  on peut : 
 	- changer la tailles des rectangles en modifiant les valeurs de sizeWidth et sizeHeight
-	- changer les conditions initiales en écrivant newRectSim.setState1(l,c); pour mettre à 1 l'état initiale du rectangle case ligne l colonne c
+	- changer la taille de la fenêtre de simulation en modifiant guiWidth et guiHeight
+	- changer les conditions initiales en écrivant : mode aléatoire ou initialisation manuel avec newRectSim.setState1(l,c); pour mettre à 1 l'état initiale du rectangle case ligne l colonne c
 ===================================================================================================
 - Le jeu de l’immigration (question 6) : 
-	on lance la commande : make RectangleImGameSimulator
-	On peut : 
+	on lance la commande : make ImmigrationGame
+	Dans TestRectangleImGameSimulator.java  on peut : 
 	- changer la tailles des rectangles en modifiant les valeurs de sizeWidth et sizeHeight
+	- changer la taille de la fenêtre de simulation en modifiant guiWidth et guiHeight
 	- changer le n ombre d'état en modifiant la valeur de nbStates
-	- changer les conditions initiales du rectangle ligne l colonne c à l'état n en écrivant newRectImSim.setState(l,c,n)
+	- changer les conditions initiales du rectangle ligne l colonne c à l'état n manuellement en écrivant newRectImSim.setState(l,c,n)
 ===================================================================================================
-- Le jeu de l’immigration (question 7) : 
-	on lance la commande : make RectanglesSchellingSimulator
-	On peut : 
+- Le modèle de Schelling (question 7) : 
+	on lance la commande : make Schelling
+	Dans TestRectanglesSchellingSimulator.java  on peut : 
 	- changer la tailles des rectangles en modifiant les valeurs de sizeWidth et sizeHeight
+	- changer la taille de la fenêtre de simulation en modifiant guiWidth et guiHeight
 	- changer le n ombre d'état en modifiant la valeur de nbStates
 	- changer le seuil k 
 	- changer les conditions initiales du rectangle ligne l colonne c à l'état n en écrivant newRectImSim.setState(l,c,n)
 ===================================================================================================
 - Un Modèle d'essaims : les poids (question 8-12) : 
-	on lance la commande : make BoidSimulator
+	on lance la commande : make Boid
 	On peut : 
 	- changer le nombre de Flock en modifiant la valeur nbFlock
-	- changer le nombre de poids par Flock en modifiant nbBoids
+	- changer le nombre de poids max par Flock en modifiant nbBoids
 	on lance la commande : make EventManager (pour le test en annexe du sujet)
 
 	

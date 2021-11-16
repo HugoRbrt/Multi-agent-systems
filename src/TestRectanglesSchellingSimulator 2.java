@@ -7,9 +7,7 @@ import java.awt.Color;
 public class TestRectanglesSchellingSimulator{
 	public static void main(String[] args) {
 //INITIALISATION DES VARIABLES
-		int guiHeight = 500;
-		int guiWidth = 500;
-		GUISimulator gui = new GUISimulator(guiWidth, guiHeight, Color.BLACK);
+		GUISimulator gui = new GUISimulator(500, 500, Color.BLACK);
 		//hauteur et largeur des rectangles :
 		int sizeHeight =50;
 		int sizeWidth =50;
@@ -17,7 +15,6 @@ public class TestRectanglesSchellingSimulator{
 		int k = 6;
 		RectanglesSchellingSimulator newRectImSim=new RectanglesSchellingSimulator(gui,sizeHeight,sizeWidth,nbStates,k);
 		//on choisit les rectangle dont on veut changer l'état initial
-		//MODE AUTOMATIQUE : attribution des états initiaux aléatoire :
 		for(int l=0;l<newRectImSim.r.getcurrentStateLength();l++){
 			for(int c=0;c<newRectImSim.r.getcurrentStateColonnesLength();c++){
 				if(1<Math.random()*10){//environ 10% des cases sont vides
